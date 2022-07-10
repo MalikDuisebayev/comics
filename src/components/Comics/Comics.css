@@ -11,6 +11,7 @@
     margin: var(--spacing-sm);
     transition: .5s;
     cursor: pointer;
+    height: 400px;
 }
 .comics__item:hover{
     transform: rotate(-3deg) scale(0.95);
@@ -23,4 +24,9 @@
 }
 .comics__img{
     width: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+.comics__border{
+    border: 3px solid orange;
 }

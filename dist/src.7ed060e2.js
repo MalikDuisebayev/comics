@@ -4732,7 +4732,65 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../src/components/Comics/Comics.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../src/components/Error/Error.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../src/components/Error/Error.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _root = require("../../constants/root");
+
+require("./Error.css");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+var Error = /*#__PURE__*/function () {
+  function Error() {
+    _classCallCheck(this, Error);
+  }
+
+  _createClass(Error, [{
+    key: "render",
+    value: function render() {
+      var htmlWrapper = "\n        <div class=\"error__container\"> \n                <p class=\"error__title\">\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430</p>\n                <p class=\"error__title\">\u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435</p>\n        </div>\n    ";
+      _root.ROOT_INDEX.innerHTML = htmlWrapper;
+    }
+  }]);
+
+  return Error;
+}();
+
+var _default = new Error();
+
+exports.default = _default;
+},{"../../constants/root":"../src/constants/root.js","./Error.css":"../src/components/Error/Error.css"}],"../src/components/Error/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _Error.default;
+  }
+});
+
+var _Error = _interopRequireDefault(require("./Error.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./Error.js":"../src/components/Error/Error.js"}],"../src/components/Comics/Comics.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4747,6 +4805,10 @@ var _GetDataApi = require("../../utils/GetDataApi.js");
 var _root = require("../../constants/root");
 
 require("./Comics.css");
+
+var _Error2 = _interopRequireDefault(require("../Error"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
@@ -4768,9 +4830,9 @@ var Comics = /*#__PURE__*/function () {
   }
 
   _createClass(Comics, [{
-    key: "render",
+    key: "renderComics",
     value: function () {
-      var _render = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _renderComics = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var data, htmlCatalog, html;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
@@ -4792,11 +4854,14 @@ var Comics = /*#__PURE__*/function () {
                   if (path.lastIndexOf(_api.IMG_NOT_AVAILABLE) === -1) {
                     var uri = "".concat(_api.API_URL).concat(_api.URL_COMICS, "/").concat(id, "/").concat(_api.URL_CHARACTERS);
                     var imgSrc = "".concat(path, "/").concat(_api.IMG_STANDARD_XLARGE, ".").concat(extension);
-                    htmlCatalog += "\n          <li class=\"comics__item\" data-uri=\"".concat(uri, "\"> \n              <span class =\"comics__name\"> ").concat(title, " </span>\n              <img class=\"comics__img\" src=\"").concat(imgSrc, "\">\n          </li>\n        ");
+                    htmlCatalog += "\n          <li class=\"comics__border comics__item\" data-uri=\"".concat(uri, "\"> \n              <span class =\"comics__name\"> ").concat(title, " </span>\n              <img class=\"comics__img\" src=\"").concat(imgSrc, "\">\n          </li>\n        ");
                   }
                 });
                 html = "\n        <ul class=\"comics__container\"> ".concat(htmlCatalog, " </ul>\n    ");
-                _root.ROOT_INDEX.innerHTML = html;
+                return _context.abrupt("return", {
+                  html: html,
+                  data: data
+                });
 
               case 7:
               case "end":
@@ -4804,6 +4869,48 @@ var Comics = /*#__PURE__*/function () {
             }
           }
         }, _callee);
+      }));
+
+      function renderComics() {
+        return _renderComics.apply(this, arguments);
+      }
+
+      return renderComics;
+    }()
+  }, {
+    key: "render",
+    value: function () {
+      var _render = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var _yield$this$renderCom, html, data;
+
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return this.renderComics();
+
+              case 2:
+                _yield$this$renderCom = _context2.sent;
+                html = _yield$this$renderCom.html;
+                data = _yield$this$renderCom.data;
+
+                if (data) {
+                  _context2.next = 7;
+                  break;
+                }
+
+                return _context2.abrupt("return", _Error2.default.render());
+
+              case 7:
+                return _context2.abrupt("return", _root.ROOT_INDEX.innerHTML = html);
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
       }));
 
       function render() {
@@ -4830,7 +4937,7 @@ var Comics = /*#__PURE__*/function () {
 var _default = new Comics();
 
 exports.default = _default;
-},{"../../constants/api.js":"../src/constants/api.js","../../utils/GetDataApi.js":"../src/utils/GetDataApi.js","../../constants/root":"../src/constants/root.js","./Comics.css":"../src/components/Comics/Comics.css"}],"../src/components/Comics/index.js":[function(require,module,exports) {
+},{"../../constants/api.js":"../src/constants/api.js","../../utils/GetDataApi.js":"../src/utils/GetDataApi.js","../../constants/root":"../src/constants/root.js","./Comics.css":"../src/components/Comics/Comics.css","../Error":"../src/components/Error/index.js"}],"../src/components/Comics/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4991,7 +5098,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62528" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64794" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -9,28 +9,41 @@ import {
 import { getDataApi } from "../../utils/GetDataApi.js";
 import { ROOT_INDEX } from "../../constants/root";
 import "./Comics.css";
+
+import Error from "../Error";
+
 class Comics {
-  async render() {
+  async renderComics() {
     const data = await getDataApi.getData(API_URL + URL_COMICS, API_KEY);
 
     let htmlCatalog = "";
+
     data.forEach(({ id, title, thumbnail: { extension, path } }) => {
       if (path.lastIndexOf(IMG_NOT_AVAILABLE) === -1) {
         const uri = `${API_URL}${URL_COMICS}/${id}/${URL_CHARACTERS}`;
         const imgSrc = `${path}/${IMG_STANDARD_XLARGE}.${extension}`;
         htmlCatalog += `
-          <li class="comics__item" data-uri="${uri}"> 
+          <li class="comics__border comics__item" data-uri="${uri}"> 
               <span class ="comics__name"> ${title} </span>
               <img class="comics__img" src="${imgSrc}">
           </li>
         `;
       }
     });
+
     const html = `
         <ul class="comics__container"> ${htmlCatalog} </ul>
     `;
 
-    ROOT_INDEX.innerHTML = html;
+    return { html, data };
+  }
+
+  async render() {
+    const { html, data } = await this.renderComics();
+    if (!data) {
+      return Error.render();
+    }
+    return (ROOT_INDEX.innerHTML = html);
   }
 
   eventListener() {
