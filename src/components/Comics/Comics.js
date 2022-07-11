@@ -11,6 +11,7 @@ import { ROOT_INDEX } from "../../constants/root";
 import "./Comics.css";
 
 import Error from "../Error";
+import Characters from "../Characters/Characters.js";
 
 class Comics {
   async renderComics() {
@@ -50,7 +51,7 @@ class Comics {
     document.querySelectorAll(".comics__item").forEach((el) => {
       const uri = el.getAttribute("data-uri");
       el.addEventListener("click", (event) => {
-        console.log(uri);
+        Characters.render(uri);
       });
     });
   }
